@@ -35,7 +35,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### 笔记
 
 ## 脚手架文件结构
-
+~~~~
 ├── node_modules
 ├── public
 │ ├── favicon.ico: 页签图标
@@ -52,7 +52,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ├── package.json: 应用包配置文件
 ├── README.md: 应用描述文件
 ├── package-lock.json：包版本控制文件
-
+~~~~
 ## 关于不同版本的 Vue
 
 1. vue.js 与 vue.runtime.xxx.js 的区别：
