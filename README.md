@@ -22,3 +22,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+###新建一个电商前端项目 ，使用技术包括 vue 2.x + vue-cli  +element-ui 等等
