@@ -35,7 +35,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### 笔记
 
 ## 脚手架文件结构
-~~~~
+
+```
 ├── node_modules
 ├── public
 │ ├── favicon.ico: 页签图标
@@ -52,7 +53,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ├── package.json: 应用包配置文件
 ├── README.md: 应用描述文件
 ├── package-lock.json：包版本控制文件
-~~~~
+```
+
 ## 关于不同版本的 Vue
 
 1. vue.js 与 vue.runtime.xxx.js 的区别：
@@ -111,13 +113,13 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## mixin(混入)
 
 1. 功能：可以把多个组件共用的配置提取成一个混入对象
-
+   <br/>
 2. 使用方式：
 
    第一步定义混合：
 
-   ```
-   {
+   ```js
+   export default {
        data(){....},
        methods:{....}
        ....
@@ -128,6 +130,44 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
    ​ 全局混入：`Vue.mixin(xxx)`
    ​ 局部混入：`mixins:['xxx']`
+
+   第三步：全局和局部使用混入时，需要导入混合，比如 import mixin from ....(具体的相对路径)  
+   <br/>
+
+3. 当混合与组件冲突时，如果是像 data ，methods，等都是先以组件自身的为主，组件有的就用组件中自带的，但是生命周期钩子会优先调用 mixins 的，也就是都会执行，但是混合的生命周期钩子会优先执行
+
+> 请谨慎使用全局混入，因为它会影响每个单独创建的 Vue 实例 (包括第三方组件)。大多数情况下，只应当应用于自定义选项，以后的所有组件都会有，当在 man.js 中配置了全局之后
+
+4. 值为对象的选项，例如 methods、components 和 directives，将被合并为同一个对象。两个对象键名冲突时，取组件对象的键值对。
+
+```js
+var mixin = {
+  methods: {
+    foo: function () {
+      console.log("foo");
+    },
+    conflicting: function () {
+      console.log("from mixin");
+    },
+  },
+};
+
+var vm = new Vue({
+  mixins: [mixin],
+  methods: {
+    bar: function () {
+      console.log("bar");
+    },
+    conflicting: function () {
+      console.log("from self");
+    },
+  },
+});
+
+vm.foo(); // => "foo"
+vm.bar(); // => "bar"
+vm.conflicting(); // => "from self"
+```
 
 ## 插件
 
